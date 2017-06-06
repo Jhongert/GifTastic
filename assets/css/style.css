@@ -1,0 +1,22 @@
+body {
+	font-size: 18px;
+}
+
+button {
+	padding: 10px;
+	margin-right: 8px;
+	margin-bottom: 8px;
+	font-size: 18px;
+	text-transform: capitalize;
+}
+
+.imgHolder {
+	float: left;
+	display: inline-block;
+	margin-right: 15px;
+	margin-bottom: 15px;
+}
+
+.imgHolder p {
+	margin-bottom: 8px;
+}
