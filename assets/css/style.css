@@ -1,5 +1,17 @@
+* {
+	box-sizing: border-box;
+}
+
 body {
 	font-size: 18px;
+}
+
+main {
+	width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 20px;
+
 }
 
 button {
@@ -10,11 +22,13 @@ button {
 	text-transform: capitalize;
 }
 
+#images {
+	position: relative;
+}
+
 .imgHolder {
-	float: left;
+	position: absolute;
 	display: inline-block;
-	margin-right: 15px;
-	margin-bottom: 15px;
 }
 
 .imgHolder p {

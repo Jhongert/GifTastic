@@ -3,8 +3,7 @@ var sports = ["baseball", "boxing", "diving", "football", "golf", "gymnastics", 
 			"martial arts", "rock climbing", "roller skating", "skateboarding"
 	];
 
-var url = "http://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&limit=10&q=";
-
+var url = "https://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&limit=12&q=";
 
 
 function createButtons(){
@@ -19,6 +18,7 @@ $(document).ready(function(){
 
 	$("#buttons").on("click", ".btn", function(){
 		$("#images").empty();
+		var posTop = [0, 0, 0, 0];
 
 		var term = $(this).val();
 		var term = term.replace(/\s/g, "+");
@@ -28,15 +28,33 @@ $(document).ready(function(){
       		url: queryURL,
       		method: "GET"
     		}).done(function(response) {
+    			var left = 0, top = 0, pos = 0;
+
     			var result = response.data;
 
+
     			 for(var i = 0; i < result.length; i++){
-    			 	var image = result[i].images.fixed_height_still.url;
-    			 	var gif = result[i].images.fixed_height.url;
+    			 	var image = result[i].images.fixed_width_still.url;
+    			 	var gif = result[i].images.fixed_width.url;
     				
     				var div = $("<div>");
-    				//div.css("width", result[i].images.fixed_height.width + "px");
     				div.addClass("imgHolder");
+
+    	
+
+    				if(i % 4 == 0){
+    					left = 0;
+    					pos = 0
+    				}else{
+						left += 220;
+						pos++;
+					}
+
+    				div.css({"top": posTop[pos], "left": left + "px"});
+
+    				var h = parseInt(result[i].images.fixed_width.height);
+					posTop[pos] += h + 40;
+    				
 
     				var p = $("<p>");
     				p.text("Rating: " + result[i].rating);
@@ -45,9 +63,11 @@ $(document).ready(function(){
     			 	img.addClass("image").attr({src: image, "data-gif": gif, "data-play": false, "data-img": image});
     			 	div.append(p);
     			 	div.append(img);
-    			 	$("#images").append(div);	
-
+    			 	$("#images").append(div);
       			}
+
+      			
+      			
     	});
 	});
 
