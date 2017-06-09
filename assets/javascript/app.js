@@ -100,7 +100,7 @@ $(document).ready(function(){
 				$("#buttons").append(btn); 		//add the button to the list
 				$("input[type=text]").val(""); 	//empty the input
 				sports.push(text); 				//add new button to array
-				$("#msg").text("The button has been added.").slideDown();
+				$("#msg").text("The sport has been added.").slideDown();
 				setTimeout("$('#msg').slideUp()",3000);
 			} else{
 				$("#msg").text("This sport already exist.").slideDown();
