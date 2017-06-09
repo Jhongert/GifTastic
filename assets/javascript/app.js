@@ -20,11 +20,15 @@ $(document).ready(function(){
 	createButtons();
 
 	$("#buttons").on("click", ".btn", function(){
-		$("#images").empty();
 		
 		var term = $(this).val(); //value of the clicked button
 		var queryURL = url + term; //to create the query 
 		
+		var header = $("<h1>");
+		header.text(term.toUpperCase());
+
+		$("#images").empty().append(header);
+
 		$.ajax({
       		url: queryURL,
       		method: "GET"
