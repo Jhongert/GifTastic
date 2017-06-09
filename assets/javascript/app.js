@@ -1,11 +1,14 @@
+//array to hold the buttons
 var sports = ["baseball", "boxing", "diving", "football", "golf", "gymnastics", "hockey",
-			"nascar", "nba", "parkour", "rowing", "formula one", "horse racing",
+			"nba", "parkour", "rowing", "formula one", "horse racing",
 			"martial arts", "rock climbing", "roller skating", "skateboarding"
 	];
 
+//query url
 var url = "https://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&limit=12&q=";
+var gifs = [];
 
-
+//function to create buttons
 function createButtons(){
 	var buttons = $("#buttons");
 	for(var i = 0; i < sports.length; i++){
@@ -18,91 +21,95 @@ $(document).ready(function(){
 
 	$("#buttons").on("click", ".btn", function(){
 		$("#images").empty();
-		var posTop = [0, 0, 0, 0];
-
-		var term = $(this).val();
-		var term = term.replace(/\s/g, "+");
-		var queryURL = url + term;
+		
+		var term = $(this).val(); //value of the clicked button
+		var queryURL = url + term; //to create the query 
 		
 		$.ajax({
       		url: queryURL,
       		method: "GET"
     		}).done(function(response) {
-    			var left = 0, top = 0, pos = 0;
-
+    			
     			var result = response.data;
 
+    			for(var i = 0; i < result.length; i++){
+    			 	var image = result[i].images.fixed_width_still.url; //URL to the image
+    			 	var gif = result[i].images.fixed_width.url; //URL to the gif
 
-    			 for(var i = 0; i < result.length; i++){
-    			 	var image = result[i].images.fixed_width_still.url;
-    			 	var gif = result[i].images.fixed_width.url;
-    				
-    				var div = $("<div>");
-    				div.addClass("imgHolder");
 
-    	
+					var li = $("<li class='itemList'>");	//to create a div
 
-    				if(i % 4 == 0){
-    					left = 0;
-    					pos = 0
-    				}else{
-						left += 220;
-						pos++;
-					}
-
-    				div.css({"top": posTop[pos], "left": left + "px"});
-
-    				var h = parseInt(result[i].images.fixed_width.height);
-					posTop[pos] += h + 40;
-    				
-
-    				var p = $("<p>");
+					//To create a p and add the rating
+					var p = $("<p>");
     				p.text("Rating: " + result[i].rating);
+    				li.append(p);
 
-    				var img = $("<img>");
-    			 	img.addClass("image").attr({src: image, "data-gif": gif, "data-play": false, "data-img": image});
-    			 	div.append(p);
-    			 	div.append(img);
-    			 	$("#images").append(div);
-      			}
+    				var div = $("<div class='imgHolder'>");
 
-      			
-      			
-    	});
+    				//To create a image, add class and attr
+    				var img = $("<img class='gif'>");
+    				img.attr({src: image, "data-gif": gif, "data-play": false, "data-still": image});
+    				div.append(img);
+
+    				li.append(div);
+    				$("#images").append(li);
+
+    				
+    				//Prefetch gif images
+    			 	gifs[i] = new Image();
+    			 	gifs[i].src = gif;
+      			}	
+    		});
 	});
 
-	$("#images").on("click", ".image", function(){
-		var thisImg = $(this);
+	$("#images").on("click", ".gif", function(){
+		var thisImg = $(this); //image that was clicked
 
-		var play = thisImg.data("play");
+		//get attribute data-play from the image
+		//data-play is true when the image is a gif
+		//and false when is a static image
+		var play = thisImg.data("play"); 
 
+		//if play is false then change the image for the gif version 
+		//and change data-play attribute to true
 		if(!play){
 			thisImg.attr("src", thisImg.data("gif"));
 			thisImg.data("play", true);
 		}else{
-			thisImg.attr("src", thisImg.data("img"));
+			//if play is true then change the gif for the static image 
+			//and change data-play attribute to false
+			thisImg.attr("src", thisImg.data("still"));
 			thisImg.data("play", false);
 		}
 	});
 
 	$("#add").click(function(){
-		var text = $("input[type=text]").val();
-		text = text.trim().toLowerCase();
+		var text = $("input[type=text]").val(); //get text from text input
+		text = text.trim().toLowerCase(); //remove spaces and convert it to lowercase
 		if(text == ""){
-			alert("You have to type a sport");
+			$("#msg").text("You have to enter a sport.").slideDown();
+			setTimeout("$('#msg').slideUp()",3000);
+			
 		} else{
-			if(sports.indexOf(text) == -1){
-				var btn = $("<button>");
-				btn.addClass("btn");
-				btn.val(text).text(text);
-				$("#buttons").append(btn);
-				$("input[type=text]").val("");
-				sports.push(text);
+			//if the input is not already in the array
+			var index = sports.indexOf(text);
+			if( index == -1){ 
+				var btn = $("<button>"); 		//create the button
+				btn.addClass("btn"); 			//add clase btn
+				btn.val(text).text(text); 		//add text
+				$("#buttons").append(btn); 		//add the button to the list
+				$("input[type=text]").val(""); 	//empty the input
+				sports.push(text); 				//add new button to array
+				$("#msg").text("The button has been added.").slideDown();
+				setTimeout("$('#msg').slideUp()",3000);
 			} else{
-				alert("The sport that you typed already exist.");
+				$("#msg").text("This sport already exist.").slideDown();
+				$("#buttons .btn:eq(" + index + ")").addClass("glowing");
+				setTimeout(function(){
+					$('#msg').slideUp();
+					$("#buttons .btn:eq(" + index + ")").removeClass("glowing");
+				}, 3000);
 			}
 		}
 	});
-
-
 });
