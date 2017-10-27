@@ -1,5 +1,5 @@
 # GifTastic
-GifTastic is a dynamic responsive web page that populates with gifs of your choice.
+GifTastic is a dynamic responsive web page that populates with gifs of your choice from the GIPHY API.
 
 ## How it works
 - The page first is populated with a series of buttons created with names of sports.
