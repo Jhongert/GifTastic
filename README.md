@@ -1,5 +1,5 @@
-# GifTastic
-GifTastic is a dynamic responsive web page that populates with gifs of your choice from the GIPHY API.
+# My Gifs
+MyGifs is a dynamic responsive web page that populates with gifs of your choice from the GIPHY API.
 
 ![App image](https://github.com/Jhongert/GifTastic/blob/master/assets/images/app.jpeg?raw=true)
 
@@ -18,7 +18,7 @@ GifTastic is a dynamic responsive web page that populates with gifs of your choi
 JavaScript, JQuery, HTML5, CSS3, AJax.
 
 ## Demo
- [GifTastic](https://jhongert.github.io/GifTastic/)
+ [My Gifs](https://jhongert.github.io/GifTastic/)
 
 ## Author
 - Jhongert Fuertes
