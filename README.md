@@ -18,7 +18,7 @@ MyGifs is a dynamic responsive web page that populates with gifs of your choice 
 JavaScript, JQuery, HTML5, CSS3, AJax.
 
 ## Demo
- [My Gifs](https://jhongert.github.io/GifTastic/)
+ [My Gifs](https://jhongert.github.io/MyGifs/)
 
 ## Author
 - Jhongert Fuertes
