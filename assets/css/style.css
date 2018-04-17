@@ -2,8 +2,17 @@
 	box-sizing: border-box;
 }
 
+html {
+	min-height: 100%;
+}
+
 body {
 	font-size: 18px;
+	background: url("../images/bg.jpg") no-repeat center center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+    background-size: cover;
 }
 
 /*Main container*/
@@ -22,7 +31,6 @@ body {
 #form {
 	margin-bottom: 20px;
 	padding-bottom: 10px;
-	border-bottom: 1px solid #eee;
 }
 
 /* Images container (ul)*/
@@ -30,6 +38,9 @@ body {
 	position: relative;
 	margin-left: -5px;
 	margin-right: -5px;
+	padding: 10px;
+	background-color: #fff;
+	display: none;
 }
 
 .listItem {

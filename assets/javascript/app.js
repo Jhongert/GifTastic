@@ -44,7 +44,7 @@ $(document).ready(function(){
 		var header = $("<h1>");
 		header.text(term.toUpperCase());
 
-		$("#images").empty().append(header); //remove images from container and add the h1
+		$("#images").show().empty().append(header); //remove images from container and add the h1
 
 		//ajax request
 		$.ajax({
