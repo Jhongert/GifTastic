@@ -43,8 +43,9 @@ $(document).ready(function(){
 		//create a h1 with the selected sport
 		var header = $("<h1>");
 		header.text(term.toUpperCase());
-
-		$("#images").show().empty().append(header); //remove images from container and add the h1
+		$("#images").show()
+			.empty()
+			.append(header);
 
 		//ajax request
 		$.ajax({
